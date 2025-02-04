@@ -1,7 +1,8 @@
 # 🏙️ Sistema de Denúncia de Problemas na Cidade
 
-Este sistema permite que cidadãos reportem problemas na cidade, como buracos, necessidade de poda de árvores e outras situações. As denúncias podem ser feitas de forma anônima ou identificada, com suporte para imagens, vídeos e localização via mapa.
+Este sistema oferece aos cidadãos a possibilidade de reportar problemas na cidade, como buracos, necessidade de poda de árvores e outras situações, de forma rápida e prática. As denúncias podem ser realizadas de maneira anônima ou identificada, com suporte para o envio de imagens, vídeos e localização através de mapa.
 
+Além disso, o sistema conta com uma tecnologia de segurança baseada em inteligência artificial, que será capaz de identificar roubos e furtos em tempo real, além de detectar pessoas suspeitas nas proximidades, contribuindo para um ambiente mais seguro para todos.
 ---
 
 ## 📌 Tecnologias Utilizadas
