@@ -20,7 +20,6 @@ Este sistema permite que cidadãos reportem problemas na cidade, como buracos, n
 
 ## 📂 Estrutura de Pastas
 
-/denuncia-worker
 │── /src
 │   ├── /config                   # Configurações do projeto (env, database, etc.)
 │   │   ├── database.config.ts    # Configuração do TypeORM e conexão com PostgreSQL
