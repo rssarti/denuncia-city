@@ -2,6 +2,9 @@ import bcrypt from 'bcryptjs';
 import { User } from "../../common/entities/user.entities";
 import UserRepository from "../../common/repositories/user.repositories";
 import { Repository } from 'typeorm';
+import { CreateUserDTO } from '../../common/dtos/CreateUserDTO';
+import { plainToClass } from 'class-transformer';
+import { validate } from 'class-validator';
 
 
 class UserService {
@@ -17,6 +20,13 @@ class UserService {
   }
 
   async createUser(data: Partial<User>): Promise<User> {
+
+    const userData: CreateUserDTO = plainToClass(CreateUserDTO, data);
+    const errors = await validate(userData);
+
+    if (errors.length > 0) {
+      throw new Error(errors.toString());
+    }
 
     const salt = await bcrypt.genSalt(10); 
 

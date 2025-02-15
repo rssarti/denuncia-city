@@ -8,7 +8,7 @@
     "typeorm:migration:run": "typeorm migration:run -d dist/database/data-source.js",
     "typeorm:migration:generate": "typeorm migration:generate -d dist/database/data-source.js",
     "typeorm:migration:create": "typeorm migration:create -d dist/database/data-source.js",
-    "dev": "ts-node --transpile-only src/index.ts",
+    "dev": "tsnd src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "format": "prettier --write \"src/**/*.{js,ts,tsx,jsx,json,md}\""
@@ -17,6 +17,8 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
@@ -30,6 +32,7 @@
     "@types/node": "^22.13.1",
     "prettier": "^3.5.1",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3"
   }
 }

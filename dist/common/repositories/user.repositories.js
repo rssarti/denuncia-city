@@ -11,6 +11,7 @@ class UserRepository {
     }
     async create(data) {
         const user = this.repository.create(data);
+        console.log(user);
         return await this.repository.save(user);
     }
 }

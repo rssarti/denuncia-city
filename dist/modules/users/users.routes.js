@@ -8,7 +8,20 @@ router.get('/', (req, res) => {
     const users = users_service_1.userService.listUsers();
     res.json(users);
 });
-router.post('/', (req, res) => {
-    res.json({ message: 'Usuário criado com sucesso' });
+router.post('/', async (req, res) => {
+    try {
+        const userData = req.body;
+        console.log('userData', userData);
+        const user = await users_service_1.userService.createUser(userData);
+        res.json(user);
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            res.status(400).json({ message: error.message });
+        }
+        else {
+            res.status(400).json({ message: 'An unknown error occurred' });
+        }
+    }
 });
 exports.userRoutes = router;

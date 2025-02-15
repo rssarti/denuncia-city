@@ -1,5 +1,9 @@
 import { Router, Request, Response } from 'express';
 import { userService } from './users.service';
+import { CreateUserDTO } from '../../common/dtos/CreateUserDTO';
+import { validate } from 'class-validator';
+import { error } from 'console';
+import { plainToClass } from 'class-transformer';
 
 const router = Router();
 
