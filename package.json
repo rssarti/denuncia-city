@@ -4,18 +4,31 @@
   "description": "Worker de Denúncias",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/index.ts",
+    "typeorm": "typeorm",
+    "typeorm:migration:run": "typeorm migration:run -d dist/database/data-source.js",
+    "typeorm:migration:generate": "typeorm migration:generate -d dist/database/data-source.js",
+    "typeorm:migration:create": "typeorm migration:create -d dist/database/data-source.js",
+    "dev": "ts-node --transpile-only src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "format": "prettier --write \"src/**/*.{js,ts,tsx,jsx,json,md}\""
   },
   "author": "Rafael Sarti",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.2"
+    "bcryptjs": "^3.0.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.13.1",
+    "prettier": "^3.5.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
