@@ -13,18 +13,10 @@ router.get('/', (req: Request, res: Response) => {
 
 router.post('/', upload.single('image_url'), async (req: Request, res: Response) => {
   try {
-
-    const { category_id, user_id, description, status, priority, latitude, longitude } = req.body;
     const imagePath = req.file ? `/uploads/${req.file.filename}` : undefined;
 
     const complaintData = {
-      category_id,
-      user_id,
-      description,
-      status,
-      priority,
-      latitude,
-      longitude,
+      ...req.body,
       image_url: imagePath,
     };
     const complaint = await complaintService.createComplaint(complaintData);
