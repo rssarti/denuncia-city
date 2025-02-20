@@ -13,7 +13,16 @@ export default class UserRepository {
         return await this.repository.find();
     }
 
+    async findOne(id: number) {
+        return await this.repository.findOneBy({ id });
+    }
+
+    async findByEmail(email: string) {
+        return await this.repository.findOneBy({ email });
+    }
+
     async create(data: Partial<User>) {
+      
         const user = this.repository.create(data);
         console.log(user);
         return await this.repository.save(user);
