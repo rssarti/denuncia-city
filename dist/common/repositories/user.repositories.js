@@ -9,6 +9,12 @@ class UserRepository {
     async find() {
         return await this.repository.find();
     }
+    async findOne(id) {
+        return await this.repository.findOneBy({ id });
+    }
+    async findByEmail(email) {
+        return await this.repository.findOneBy({ email });
+    }
     async create(data) {
         const user = this.repository.create(data);
         console.log(user);

@@ -5,7 +5,8 @@ require("reflect-metadata");
 const typeorm_1 = require("typeorm");
 const dotenv_1 = require("dotenv");
 const user_entities_1 = require("../common/entities/user.entities");
-(0, dotenv_1.config)(); // Inicializa as variáveis de ambiente
+const complaint_entites_1 = require("../common/entities/complaint.entites");
+(0, dotenv_1.config)();
 exports.AppDataSource = new typeorm_1.DataSource({
     type: 'postgres',
     host: process.env.DB_HOST,
@@ -15,8 +16,8 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: process.env.DB_DATABASE,
     synchronize: false,
     logging: true,
-    entities: [user_entities_1.User], // Sem a barra inicial "/"
-    migrations: ['dist/database/migrations/*.js'], // Caminho correto
+    entities: [user_entities_1.User, complaint_entites_1.Complaint],
+    migrations: ['dist/database/migrations/*.js'],
     migrationsTableName: 'migrations',
     subscribers: [],
 });

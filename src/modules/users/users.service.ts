@@ -1,12 +1,10 @@
 import bcrypt from 'bcryptjs';
 import { User } from "../../common/entities/user.entities";
 import UserRepository from "../../common/repositories/user.repositories";
-import { Repository } from 'typeorm';
-import { CreateUserDTO } from '../../common/dtos/CreateUserDTO';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-
-
+import jwt from 'jsonwebtoken';
+import { CreateUserDTO } from '../../common/dtos/user.dto';
 class UserService {
 
   private readonly repository: UserRepository;
@@ -16,7 +14,24 @@ class UserService {
   }
 
   async listUsers(): Promise<any> {
-    return await this.repository.find();
+    const users = await this.repository.find();
+    return users.map(({ id, name, email, created_at, updated_at }) => ({ id, name, email, created_at, updated_at })); 
+  }
+
+  async findOne(id: number): Promise<User> {
+    const user = await this.repository.findOne(id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return user;
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.repository.findByEmail(email);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return user;
   }
 
   async createUser(data: Partial<User>): Promise<User> {
@@ -39,6 +54,28 @@ class UserService {
 
     return savedUser; 
     
+  }
+
+  async authenticateUser(email: string, password: string): Promise<{ token: string }> {
+    const user = await this.repository.findByEmail(email);
+
+    if (!user) {
+      throw new Error("Invalid email or password");
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new Error("Invalid email or password");
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET ?? "false",
+      { expiresIn: "1h" }
+    );
+
+    return { token };
   }
 }
 

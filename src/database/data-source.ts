@@ -2,8 +2,10 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
 import { User } from '../common/entities/user.entities';
+import { Complaint } from '../common/entities/complaint.entites';
+import { Category } from '../common/entities/category.entities';
 
-config(); // Inicializa as variáveis de ambiente
+config(); 
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -14,8 +16,8 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE,
   synchronize: false,
   logging: true,
-  entities: [User], // Sem a barra inicial "/"
-  migrations: ['dist/database/migrations/*.js'], // Caminho correto
+  entities: [User, Complaint, Category], 
+  migrations: ['dist/database/migrations/*.js'], 
   migrationsTableName: 'migrations',
   subscribers: [],
 });

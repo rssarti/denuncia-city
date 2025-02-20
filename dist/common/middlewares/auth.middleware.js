@@ -5,13 +5,20 @@ const jwt_config_1 = require("../../config/jwt.config");
 const authMiddleware = (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
-        return res.status(401).json({ message: 'Token não fornecido' });
+        res.status(401).json({ message: 'Token não fornecido' });
+        return;
     }
-    const decoded = jwt_config_1.JwtService.verifyToken(token);
-    if (!decoded) {
-        return res.status(401).json({ message: 'Token inválido ou expirado' });
+    try {
+        const decoded = jwt_config_1.JwtService.verifyToken(token);
+        if (!decoded) {
+            res.status(401).json({ message: 'Token inválido ou expirado' });
+            return;
+        }
+        req.user = decoded;
+        next();
     }
-    req.user = decoded;
-    next();
+    catch (error) {
+        res.status(401).json({ message: 'Erro ao validar token' });
+    }
 };
 exports.authMiddleware = authMiddleware;

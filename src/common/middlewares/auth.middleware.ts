@@ -1,23 +1,29 @@
 import { Request, Response, NextFunction } from 'express';
 import { JwtService } from '../../config/jwt.config';
 
-interface RequestWithUser extends Request {
+export interface RequestWithUser extends Request {
   user?: any;
 }
 
-export const authMiddleware = (req: RequestWithUser, res: Response, next: NextFunction) => {
+export const authMiddleware = (req: RequestWithUser, res: Response, next: NextFunction): void => {
   const token = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
-    return res.status(401).json({ message: 'Token não fornecido' });
+    res.status(401).json({ message: 'Token não fornecido' });
+    return;
   }
 
-  const decoded = JwtService.verifyToken(token);
+  try {
+    const decoded = JwtService.verifyToken(token);
 
-  if (!decoded) {
-    return res.status(401).json({ message: 'Token inválido ou expirado' });
+    if (!decoded) {
+      res.status(401).json({ message: 'Token inválido ou expirado' });
+      return;
+    }
+
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ message: 'Erro ao validar token' });
   }
-
-  req.user = decoded;
-  next();
 };
